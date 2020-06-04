@@ -44,7 +44,6 @@ imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 imgBlur = cv2.GaussianBlur(imgGray, (7, 7), 1)
 imgCanny = cv2.Canny(imgBlur, 50, 50)
 
-
 for color in real_colors:
     lower = np.array(real_colors[color]) - np.array([val, val, val])
     upper = np.array(real_colors[color]) + np.array([val, val, val])
