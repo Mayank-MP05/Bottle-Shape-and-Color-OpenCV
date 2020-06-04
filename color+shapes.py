@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def getContours(img):
+def getContours(img,color):
     contours, hierarchy = cv2.findContours(
         img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     for cnt in contours:
@@ -17,7 +17,7 @@ def getContours(img):
             x, y, w, h = cv2.boundingRect(approx)
 
             cv2.rectangle(imgContour, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            cv2.putText(imgContour, "Square",
+            cv2.putText(imgContour, color,
                         (x+(w//2)-10, y+(h//2)-10), cv2.FONT_HERSHEY_COMPLEX, 0.7,
                         (0, 0, 0), 2)
 
@@ -50,7 +50,7 @@ for color in real_colors:
     upper = np.array(real_colors[color]) + np.array([val, val, val])
     mask = cv2.inRange(img, lower, upper)
 
-    getContours(mask)
+    getContours(mask,color)
     
 cv2.imshow("Drawn Countour", imgContour)
 
