@@ -6,7 +6,7 @@ def getContours(img,color):
         img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        if area > 1000.0:
+        if area > 700.0:
             print(area)
             cv2.drawContours(imgContour, cnt, -1, (255, 0, 0), 3)
             peri = cv2.arcLength(cnt, True)
@@ -18,7 +18,7 @@ def getContours(img,color):
 
             cv2.rectangle(imgContour, (x, y), (x+w, y+h), (0, 255, 0), 2)
             cv2.putText(imgContour, color,
-                        (x+(w//2)-10, y+(h//2)-10), cv2.FONT_HERSHEY_COMPLEX, 0.7,
+                        (x+(w//2)-10, y+(h//2)-10), cv2.FONT_HERSHEY_SCRIPT_COMPLEX , 0.7,
                         (0, 0, 0), 2)
 
 
@@ -31,6 +31,7 @@ real_colors = {
     "red": [62, 54, 220],
     #"white": [237, 232, 221],
     "green": [137, 215, 11],
+    "Orange": [96,202,240]
 }
 val = 40
 
@@ -44,10 +45,9 @@ while(True):
             lower = np.array(real_colors[color]) - np.array([val, val, val])
             upper = np.array(real_colors[color]) + np.array([val, val, val])
             mask = cv2.inRange(img, lower, upper)
-
             getContours(mask,color)
             
-        cv2.imshow("Drawn Countour", imgContour)
+        cv2.imshow("All Images Stacked Window", np.hstack([img,imgContour]))
     q = cv2.waitKey(1)
     if q == ord("q"):
         break
